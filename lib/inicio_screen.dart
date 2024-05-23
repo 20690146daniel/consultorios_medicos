@@ -28,8 +28,25 @@ class _inicioScreenState extends State<inicioScreen> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Consultorios'),
+        title: Center(
+          child: Text(
+            'Consultorios Médicos',
+            style: TextStyle(
+              color: Colors.blue, 
+              fontSize: 24, 
+            ),
+          ),
+        ),
         bottom: TabBar(
+          labelColor: Colors.blue, 
+          unselectedLabelColor: Colors.blueGrey, 
+          labelStyle: TextStyle(
+            fontSize: 18, 
+            fontWeight: FontWeight.bold, 
+          ),
+          unselectedLabelStyle: TextStyle(
+            fontSize: 16, 
+          ),
           controller: _tabController,
           tabs: [
             Tab(text: 'Pacientes'),

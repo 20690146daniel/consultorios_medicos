@@ -26,10 +26,11 @@ class _pacienteScreenState extends State<pacienteScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Consultorios Médicos',
+          'Hospital San Jose',
           style: TextStyle(
-            color: Colors.greenAccent,
+            color: Colors.blue,
             fontWeight: FontWeight.w700,
+            fontSize: 24, 
           ),
         ),
         automaticallyImplyLeading: false,
@@ -37,7 +38,7 @@ class _pacienteScreenState extends State<pacienteScreen> {
       ),
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.lightBlueAccent,
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
@@ -46,19 +47,19 @@ class _pacienteScreenState extends State<pacienteScreen> {
         },
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.list, color: Colors.blueGrey,),
-            label: 'Lista',
+            icon: Icon(Icons.medical_information, color: Colors.lightBlueAccent,),
+            label: 'Medicos',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.history, color: Colors.blueGrey,),
+            icon: Icon(Icons.history, color: Colors.lightBlueAccent,),
             label: 'Historial',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today, color: Colors.blueGrey,),
+            icon: Icon(Icons.calendar_today, color: Colors.lightBlueAccent,),
             label: 'Citas',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: Colors.blueGrey,),
+            icon: Icon(Icons.person, color: Colors.lightBlueAccent,),
             label: 'Perfil',
           ),
         ],
