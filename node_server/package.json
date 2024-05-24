@@ -1,0 +1,16 @@
+{
+  "name": "consultorios_medicos",
+  "version": "1.0.0",
+  "description": "Backend server for Flutter app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.3"
+  },
+  "author": "",
+  "license": "ISC"
+}

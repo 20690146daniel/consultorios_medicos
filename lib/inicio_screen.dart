@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
 import 'registro_screen.dart';
-import 'medico_screen.dart';
+//import 'medico_screen.dart';
 
 
 class inicioScreen extends StatefulWidget {
@@ -51,7 +51,7 @@ class _inicioScreenState extends State<inicioScreen> with SingleTickerProviderSt
           tabs: [
             Tab(text: 'Pacientes'),
             Tab(text: 'Registrarse'),
-            Tab(text: 'Médico'),
+            //Tab(text: 'Médico'),
           ],
         ),
       ),
@@ -60,7 +60,7 @@ class _inicioScreenState extends State<inicioScreen> with SingleTickerProviderSt
         children: [
           loginScreen(),
           registroScreen(),
-          medicoScreen(),
+         // medicoScreen(),
         ],
       ),
     );
