@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class RegistroScreen extends StatelessWidget {
+class registroScreen extends StatelessWidget {
   final TextEditingController _nombreController = TextEditingController();
   final TextEditingController _correoController = TextEditingController();
   final TextEditingController _contrasenaController = TextEditingController();
