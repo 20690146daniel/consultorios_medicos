@@ -6,15 +6,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const mongoUrl = "mongodb+srv://admin:admin1@consutorio.sisyumk.mongodb.net/admin?retryWrites=true&w=majority&appName=consutorio";
+const mongoUrl = "mongodb+srv://admin:admin1@consutorio.sisyumk.mongodb.net/consultoriomedico?retryWrites=true&w=majority&appName=consutorio";
 
 mongoose.connect(mongoUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
-  console.log('Connected to MongoDB');
+  console.log('******CONECTADO A MONDONGO****');
 }).catch(err => {
-  console.error('Error connecting to MongoDB', err);
+  console.error('#####ERROR EN MONDONGO###', err);
 });
 
 const userSchema = new mongoose.Schema({
@@ -25,13 +25,31 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-app.post('/login', async (req, res) => {
+const pacienteSchema = new mongoose.Schema({
+  nombre: String,
+  edad: Number,
+  historial: String
+});
+
+const Paciente = mongoose.model('Paciente', pacienteSchema);
+
+app.post('/', async (req, res) => {
   const { correo, contrasena } = req.body;
   const user = await User.findOne({ correo, contrasena });
   if (user) {
     res.send({ message: 'Login successful' });
   } else {
     res.status(401).send({ message: 'Invalid credentials' });
+  }
+});
+
+
+app.get('/pacientes', async (req, res) => {
+  try {
+    const pacientes = await Paciente.find({});
+    res.status(200).json(pacientes);
+  } catch (err) {
+    res.status(500).send({ message: 'Error al obtener los datos de pacientes' });
   }
 });
 

@@ -1,7 +1,7 @@
 import 'package:mongo_dart/mongo_dart.dart';
 import 'constantes.dart'; 
-import 'dart:io' show Platform; // Importa Platform solo para móviles y escritorio.
-import 'package:flutter/foundation.dart'; // Importa kIsWeb para detectar web.
+import 'dart:io' show Platform; 
+import 'package:flutter/foundation.dart'; 
 
 class MongoDatabase {
    Future<void> connect() async {

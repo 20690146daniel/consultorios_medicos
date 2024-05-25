@@ -1,30 +1,42 @@
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter/material.dart';
 
-class loginScreen extends StatelessWidget {
+class loginScreen extends StatefulWidget {
+  @override
+  _loginScreenState createState() => _loginScreenState();
+}
+
+class _loginScreenState extends State<loginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   Future<void> _login(BuildContext context) async {
+    
+    final String mongoUrl ='mongodb+srv://admin:admin1@consutorio.sisyumk.mongodb.net/test?retryWrites=true&w=majority&appName=consutorio';
+
+    final Map<String, String> loginData = {
+      'correo': _emailController.text,
+      'contrasena': _passwordController.text,
+    };
+
     final response = await http.post(
-      Uri.parse('http://localhost:5000/login'), // Asegúrate de que la URL coincida con tu servidor
+      Uri.parse('$mongoUrl/usuarios'), 
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, String>{
-        'correo': _emailController.text,
-        'contrasena': _passwordController.text,
-      }),
+      body: jsonEncode(loginData),
     );
 
     if (response.statusCode == 200) {
+      
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Login successful')),
+        SnackBar(content: Text('Inicio de sesión exitoso')),
       );
     } else {
+     
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Invalid credentials')),
+        SnackBar(content: Text('Credenciales no válidas')),
       );
     }
   }
@@ -36,7 +48,7 @@ class loginScreen extends StatelessWidget {
         width: 300,
         padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
-          color: Colors.greenAccent[100],
+          color: Colors.lightBlue[100],
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
