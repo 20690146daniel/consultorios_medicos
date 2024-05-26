@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mongo_dart/mongo_dart.dart' as M;
 import 'package:consultorios_medicos/conexion/mongodb.dart';
-import 'mongodbmodel.dart';
+import 'MongoDbModel.dart';
+import 'paciente_screen.dart';
 
 class registroScreen extends StatefulWidget { 
   registroScreen({Key? key }) : super(key: key);
@@ -14,18 +15,34 @@ class _registroScreenState extends State<registroScreen> {
   var correoController = TextEditingController();
   var contrasenaController = TextEditingController();
 
-  Future<void> _registro(String nombre, String contrasena, String correo) async {
-    final _id = M.ObjectId();
-    final data = MongoDbModel(id: _id, nombre: nombre, contrasena: contrasena, correo: correo);
-   //var result = await MongoDatabase.insert(data);
+ Future<void> _registro(String nombre, String contrasena, String correo) async {
+  final _id = M.ObjectId();
+  final data = MongoDbModel(id: _id, nombre: nombre, contrasena: contrasena, correo: correo);
 
+  var result = await MongoDatabase.insert(data);
 
-       ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Datos insertados: " + _id.$oid))
+  if (result == "Datos insertados ") {
+  
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Datos insertados: " + _id.$oid)),
     );
 
-     _limpiar();
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => pacienteScreen(), 
+      ),
+    );
+  } else {
+    // Error al registrar
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Error al registrar: $result")),
+    );
   }
+
+  _limpiar();
+}
   void _limpiar(){
     nombreController.text ="";
     contrasenaController.text ="";

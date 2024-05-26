@@ -1,4 +1,3 @@
-import 'package:consultorios_medicos/lista_screen.dart';
 import 'package:flutter/material.dart';
 import 'inicio_screen.dart'; 
 import 'package:consultorios_medicos/conexion/mongodb.dart';
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/', 
       routes: {
-        '/': (context) => listaScreen(), 
+        '/': (context) => inicioScreen(), 
         
       },
     );

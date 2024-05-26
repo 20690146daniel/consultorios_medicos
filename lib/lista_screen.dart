@@ -1,7 +1,6 @@
 import 'package:consultorios_medicos/conexion/mongodb.dart';
 import 'package:flutter/material.dart';
 import 'package:consultorios_medicos/MongoDbModel.dart';
-import 'package:consultorios_medicos/conexion/constantes.dart';
 
 class listaScreen extends StatefulWidget {
   const listaScreen({super.key});
@@ -54,7 +53,6 @@ class _listaScreenState extends State<listaScreen> {
       child: Column(
         crossAxisAlignment:  CrossAxisAlignment.start,
         children: [
-          Text("${data.id.$oid}"),
           SizedBox(height: 5),
           Text("${data.nombre}"),
           SizedBox(height: 5),
