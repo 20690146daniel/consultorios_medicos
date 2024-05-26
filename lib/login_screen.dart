@@ -13,7 +13,7 @@ class _loginScreenState extends State<loginScreen> {
 
   Future<void> _login(BuildContext context) async {
     
-    final String mongoUrl ='mongodb+srv://admin:admin1@consutorio.sisyumk.mongodb.net/test?retryWrites=true&w=majority&appName=consutorio';
+    final String mongoUrl ='mongodb+srv://admin:admin1@consutorio.sisyumk.mongodb.net/consultoriomedico?retryWrites=true&w=majority&appName=consutorio';
 
     final Map<String, String> loginData = {
       'correo': _emailController.text,

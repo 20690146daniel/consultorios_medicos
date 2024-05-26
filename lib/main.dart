@@ -1,6 +1,7 @@
+import 'package:consultorios_medicos/lista_screen.dart';
 import 'package:flutter/material.dart';
 import 'inicio_screen.dart'; 
-import 'mongodb.dart'; 
+import 'package:consultorios_medicos/conexion/mongodb.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/', 
       routes: {
-        '/': (context) => inicioScreen(), 
+        '/': (context) => listaScreen(), 
         
       },
     );
