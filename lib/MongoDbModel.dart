@@ -1,37 +1,33 @@
-
-//final mongolibModel mongolbModelFromJson(jsonString);
-
-import 'dart:convert';
 import 'package:mongo_dart/mongo_dart.dart';
 
-MongoDbModel mongoDbModelFromJson(String str) => MongoDbModel.fromJson(json.decode(str));
-
-String mongoDbModelToJson(MongoDbModel data) => json.encode(data.toJson());
-
 class MongoDbModel {
+  final ObjectId id;
+  final String nombre;
+  final String correo;
+  final String contrasena;
+
   MongoDbModel({
     required this.id,
     required this.nombre,
-    required this.contrasena,
     required this.correo,
+    required this.contrasena,
   });
 
-  ObjectId id;
-  String nombre;
-  String contrasena;
-  String correo;
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'nombre': nombre,
+      'correo': correo,
+      'contrasena': contrasena,
+    };
+  }
 
-  factory MongoDbModel.fromJson(Map<String, dynamic> json) => MongoDbModel(
-    id: json["_id"],
-    nombre: json["Nombre"],
-    contrasena: json["Contraseña"],
-    correo: json["Correo"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "_id": id,
-    "Nombre": nombre,
-    "Contraseña": contrasena,
-    "Correo": correo,
-  };
+  factory MongoDbModel.fromMap(Map<String, dynamic> map) {
+    return MongoDbModel(
+      id: map['_id'] as ObjectId,
+      nombre: map['nombre'] as String,
+      correo: map['correo'] as String,
+      contrasena: map['contrasena'] as String,
+    );
+  }
 }

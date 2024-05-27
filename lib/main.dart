@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'inicio_screen.dart'; 
+import 'inicio_screen.dart';
 import 'package:consultorios_medicos/conexion/mongodb.dart';
 
 Future<void> main() async {

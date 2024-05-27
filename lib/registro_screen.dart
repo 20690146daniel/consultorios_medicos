@@ -31,7 +31,7 @@ class _registroScreenState extends State<registroScreen> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => pacienteScreen(), 
+        builder: (context) => pacienteScreen(user: data,), 
       ),
     );
   } else {
@@ -53,7 +53,7 @@ class _registroScreenState extends State<registroScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registro de Médicos'),
+        //title: Text('Registro Pacientes'),
       ),
       body: Center(
         child: Container(

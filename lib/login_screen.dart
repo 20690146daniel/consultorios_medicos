@@ -1,80 +1,85 @@
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:consultorios_medicos/conexion/mongodb.dart';
+import 'paciente_screen.dart';
 
 class loginScreen extends StatefulWidget {
+  loginScreen({Key? key}) : super(key: key);
   @override
   _loginScreenState createState() => _loginScreenState();
 }
 
 class _loginScreenState extends State<loginScreen> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  var correoController = TextEditingController();
+  var contrasenaController = TextEditingController();
 
-  Future<void> _login(BuildContext context) async {
-    
-    final String mongoUrl ='mongodb+srv://admin:admin1@consutorio.sisyumk.mongodb.net/consultoriomedico?retryWrites=true&w=majority&appName=consutorio';
-
-    final Map<String, String> loginData = {
-      'correo': _emailController.text,
-      'contrasena': _passwordController.text,
-    };
-
-    final response = await http.post(
-      Uri.parse('$mongoUrl/usuarios'), 
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(loginData),
-    );
-
-    if (response.statusCode == 200) {
-      
+  Future<void> _login(String correo, String contrasena) async {
+    var user = await MongoDatabase.getUser(correo, contrasena);
+    if (user != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Inicio de sesión exitoso')),
+        SnackBar(content: Text("Inicio de sesión exitoso")),
+      );
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => pacienteScreen(user: user), 
+        ),
       );
     } else {
-     
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Credenciales no válidas')),
+        SnackBar(content: Text("Correo o contraseña incorrectos")),
       );
     }
+
+    _limpiar();
+  }
+
+  void _limpiar(){
+    correoController.text = "";
+    contrasenaController.text = "";
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        width: 300,
-        padding: const EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          color: Colors.lightBlue[100],
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.blue,
-              blurRadius: 10,
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(labelText: 'Correo'),
-            ),
-            TextField(
-              controller: _passwordController,
-              decoration: InputDecoration(labelText: 'Contraseña'),
-              obscureText: true,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => _login(context),
-              child: Text('Entrar'),
-            ),
-          ],
+    return Scaffold(
+      appBar: AppBar(
+       // title: Text('Inicio de Sesión'),
+      ),
+      body: Center(
+        child: Container(
+          width: 300,
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            color: Colors.grey[100],
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.blue,
+                blurRadius: 10,
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: correoController,
+                decoration: InputDecoration(labelText: 'Correo'),
+              ),
+              TextField(
+                controller: contrasenaController,
+                decoration: InputDecoration(labelText: 'Contraseña'),
+                obscureText: true,
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  _login(correoController.text, contrasenaController.text);
+                },
+                child: Text('Iniciar Sesión'),
+              ),
+            ],
+          ),
         ),
       ),
     );
