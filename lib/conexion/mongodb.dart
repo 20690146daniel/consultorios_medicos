@@ -54,4 +54,19 @@ static Future<List<Map<String, dynamic>>> getData() async {
       return null;
     }
   }
+
+   // Método para verificar la existencia de un usuario por nombre y correo electrónico
+  static Future<bool> getByusuario(String nombre, String correo) async {
+    try{
+    var user = await userCollection.findOne({
+      'nombre': nombre,
+      'correo': correo,
+    });
+
+    return user != null;
+  }catch(e){
+    print('Error al buscar usuario en la base de datos: $e');
+    return false;
+  }
+}
 }
