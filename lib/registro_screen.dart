@@ -24,7 +24,7 @@ class _registroScreenState extends State<registroScreen> {
   if (result == "Datos insertados ") {
   
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Datos insertados: " + _id.$oid)),
+      SnackBar(content: Text("Datos insertados: " + _id.$oid, selectionColor:Colors.orange ,)),
     );
 
 
@@ -51,8 +51,12 @@ class _registroScreenState extends State<registroScreen> {
 
   @override
   Widget build(BuildContext context) {
+          backgroundColor: Colors.indigo;
+
     return Scaffold(
       appBar: AppBar(
+             // backgroundColor: Colors.indigo,
+
         //title: Text('Registro Pacientes'),
       ),
       body: Center(

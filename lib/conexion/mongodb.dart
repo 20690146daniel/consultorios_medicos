@@ -3,9 +3,10 @@ import 'package:consultorios_medicos/conexion/constantes.dart';
 //import 'dart:io' show Platform; 
 import 'package:flutter/foundation.dart'; 
 import 'package:consultorios_medicos/MongoDbModel.dart';
+import 'package:consultorios_medicos/citasModel.dart';
 
 class MongoDatabase {
-  static var  userCollection,medicoCollection;
+  static var  userCollection,medicoCollection,collection,citasCollection;
    Future<void> connect() async {
     try {
       var db = await Db.create(mongoUrl);
@@ -18,11 +19,24 @@ class MongoDatabase {
       print('¡Conectado a MongoDB Atlas!');
       userCollection = db.collection(collection_name);
       medicoCollection = db.collection(collection_medico);
+      collection = db.collection(collection_medico);
+      citasCollection = db.collection(collection_cita);
+      
      
     } catch (e) {
       print('Error al conectarse a MongoDB Atlas: $e');
     } 
   }
+   static Future<List<Map<String, dynamic>>> getDoctorData() async {
+    final doctors = await collection.find().toList();
+    return doctors;
+  }
+    static Future<void> agendarCita(CitaModel cita) async {
+    await citasCollection.insert(cita.toJson());
+  }
+
+
+  
 static Future<List<Map<String, dynamic>>> getData() async {
   final arrData = await medicoCollection.find().toList();
   return arrData;
@@ -53,5 +67,8 @@ static Future<List<Map<String, dynamic>>> getData() async {
     } else {
       return null;
     }
+  }
+  static Future<void> insertarCita(Map<String, dynamic> data) async {
+    await collection.insertOne(data);
   }
 }

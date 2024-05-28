@@ -1,7 +1,7 @@
 import 'package:consultorios_medicos/inicio_screen.dart';
 import 'package:flutter/material.dart';
 import 'MongoDbModel.dart';
-import 'login_screen.dart'; 
+
 
 class perfilScreen extends StatelessWidget {
   final MongoDbModel user;
@@ -12,7 +12,18 @@ class perfilScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Perfil'),
+         backgroundColor: Colors.indigo,
+        title: Center(
+          child: Text(
+            'Datos Personales',
+            style: TextStyle(
+              fontFamily: 'Roboto',
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        ),
       ),
       body: Center(
         child: Container(
@@ -31,7 +42,7 @@ class perfilScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Nombre del Usuario: ${user.nombre}', style: TextStyle(fontSize: 18)),
+              Text('Nombre del Usuario: ${user.nombre}',selectionColor: Colors.deepOrange ,style: TextStyle(fontSize: 18)),
               Text('Correo: ${user.correo}', style: TextStyle(fontSize: 18)),
               SizedBox(height: 20),
               ElevatedButton(
@@ -46,7 +57,10 @@ class perfilScreen extends StatelessWidget {
                 child: Text('Cerrar Sesión'),
               ),
             ],
+            
           ),
+          
+
         ),
       ),
     );

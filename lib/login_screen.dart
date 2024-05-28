@@ -41,8 +41,10 @@ class _loginScreenState extends State<loginScreen> {
 
   @override
   Widget build(BuildContext context) {
+        backgroundColor: Colors.indigo;
     return Scaffold(
       appBar: AppBar(
+     // backgroundColor: Colors.indigo,
        // title: Text('Inicio de Sesión'),
       ),
       body: Center(

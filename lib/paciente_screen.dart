@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'lista_screen.dart';
 import 'historial_screen.dart';
-import 'citas_creen.dart';
 import 'perfil_screen.dart';
+import 'package:consultorios_medicos/ScheduleModel.dart';
 import 'MongoDbModel.dart';
+import 'package:consultorios_medicos/buscardocotr_screen.dart';
 
 class pacienteScreen extends StatefulWidget {
   final MongoDbModel user;
@@ -16,22 +17,25 @@ class pacienteScreen extends StatefulWidget {
 
 class _pacienteScreenState extends State<pacienteScreen> {
   int _currentIndex = 0;
+   List<ScheduleModel> medicos = [];
+
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> _screens = [
       const listaScreen(),
       const historialScreen(),
-      const citasScreen(),
+       buscarDoctorScreen(pacienteNombre: widget.user.nombre),
       perfilScreen(user: widget.user),
     ];
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.indigo,
         title: const Text(
           'Hospital San Jose',
           style: TextStyle(
-            color: Colors.blue,
+            color: Colors.white,
             fontWeight: FontWeight.w700,
             fontSize: 24,
           ),
@@ -41,7 +45,7 @@ class _pacienteScreenState extends State<pacienteScreen> {
       ),
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.lightBlueAccent,
+              backgroundColor: Colors.indigo,
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {

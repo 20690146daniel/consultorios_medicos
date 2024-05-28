@@ -15,15 +15,15 @@ class _listaScreenState extends State<listaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
+      backgroundColor: Colors.indigo,
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+    backgroundColor: Colors.indigo,
         title: Center(
           child: Text(
-            'MEDICOS DISPONIBLES',
+            'Medicos Disponibles',
             style: TextStyle(
               fontFamily: 'Roboto',
-              fontSize: 20,
+              fontSize: 24,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
