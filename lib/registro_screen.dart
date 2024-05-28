@@ -16,18 +16,29 @@ class _registroScreenState extends State<registroScreen> {
   var contrasenaController = TextEditingController();
 
  Future<void> _registro(String nombre, String contrasena, String correo) async {
+  bool usuexistente = await MongoDatabase.getByusuario(nombre, correo);
+ 
+if(usuexistente){
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content: Text ("El usuario ya esta registrado")),
+
+  );
+  _limpiar();
+  return;
+}
+//si el usuario no esta registrado, inserte datos
   final _id = M.ObjectId();
   final data = MongoDbModel(id: _id, nombre: nombre, contrasena: contrasena, correo: correo);
 
   var result = await MongoDatabase.insert(data);
+
 
   if (result == "Datos insertados ") {
   
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text("Datos insertados: " + _id.$oid)),
     );
-
-
+  
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -43,6 +54,12 @@ class _registroScreenState extends State<registroScreen> {
 
   _limpiar();
 }
+Future<bool> _verificarusuexistente(String nombre, String correo) async {
+  var result = await MongoDatabase.getByusuario(nombre, correo);
+ // return result != null;
+ return result;
+}
+
   void _limpiar(){
     nombreController.text ="";
     contrasenaController.text ="";
