@@ -25,7 +25,7 @@ class _pacienteScreenState extends State<pacienteScreen> {
       const listaScreen(),
       historialScreen(pacienteNombre: widget.user.nombre),
       buscarDoctorScreen(pacienteNombre: widget.user.nombre),
-      perfilScreen(user: widget.user),
+      PerfilScreen(user: widget.user),
     ];
 
     return Scaffold(

@@ -1,5 +1,3 @@
-
-
 import 'package:consultorios_medicos/conexion/mongodb.dart';
 import 'package:flutter/material.dart';
 import 'package:consultorios_medicos/ScheduleModel.dart';
@@ -17,10 +15,10 @@ class _listaScreenState extends State<listaScreen> {
     return Scaffold(
       backgroundColor: Colors.indigo,
       appBar: AppBar(
-    backgroundColor: Colors.indigo,
+        backgroundColor: Colors.indigo,
         title: Center(
           child: Text(
-            'Medicos Disponibles',
+            'Médicos Disponibles',
             style: TextStyle(
               fontFamily: 'Roboto',
               fontSize: 24,
@@ -42,7 +40,7 @@ class _listaScreenState extends State<listaScreen> {
                 );
               } else if (snapshot.hasData) {
                 var totalData = snapshot.data.length;
-                print("**TOTAL MEDICOS** " + totalData.toString());
+                print("**TOTAL MÉDICOS** " + totalData.toString());
                 return ListView.builder(
                   itemCount: snapshot.data.length,
                   itemBuilder: (context, index) {
@@ -53,7 +51,13 @@ class _listaScreenState extends State<listaScreen> {
                 );
               } else {
                 return Center(
-                  child: Text("No disponible"),
+                  child: Text(
+                    "No disponible",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                  ),
                 );
               }
             },
@@ -65,22 +69,69 @@ class _listaScreenState extends State<listaScreen> {
 
   Widget displayCard(ScheduleModel data) {
     return Card(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      elevation: 5,
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("${data.id.toHexString()}"),
+            Text(
+              "ID: ${data.id.toHexString()}",
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[700],
+              ),
+            ),
             SizedBox(height: 5),
-            Text("${data.nombre}"),
+            Text(
+              "Nombre: ${data.nombre}",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.indigo,
+              ),
+            ),
             SizedBox(height: 5),
-            Text("${data.especialidad}"),
+            Text(
+              "Especialidad: ${data.especialidad}",
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black87,
+              ),
+            ),
             SizedBox(height: 5),
-            Text("${data.informacion}"),
-            SizedBox(height: 5),
-            Text("Hora de inicio: ${data.horaInicio}"),
-            SizedBox(height: 5),
-            Text("Hora de cierre: ${data.horaCierre}"),
+            Text(
+              "Información: ${data.informacion}",
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.black54,
+              ),
+            ),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Hora de inicio: ${data.horaInicio}",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black54,
+                  ),
+                ),
+                Text(
+                  "Hora de cierre: ${data.horaCierre}",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black54,
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),

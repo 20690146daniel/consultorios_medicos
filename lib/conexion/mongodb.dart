@@ -75,4 +75,17 @@ class MongoDatabase {
     final historial = await citasCollection.find().toList();
     return List<Map<String, dynamic>>.from(historial);
   }
+  static Future<bool> getByusuario(String nombre, String correo) async {
+    try{
+    var user = await userCollection.findOne({
+      'nombre': nombre,
+      'correo': correo,
+    });
+
+    return user != null;
+  }catch(e){
+    print('Error al buscar usuario en la base de datos: $e');
+    return false;
+  }
+} 
 }
