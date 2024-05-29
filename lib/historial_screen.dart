@@ -147,6 +147,7 @@ class _historialScreenState extends State<historialScreen> {
               ),
             ),
             SizedBox(height: 5),
+
             Text(
               "Estado: ${data.status}",
               style: TextStyle(
@@ -154,6 +155,17 @@ class _historialScreenState extends State<historialScreen> {
                 color: data.status == 'Atendida' ? Colors.green : Colors.red,
               ),
             ),
+
+            Text("Estado: ${data.status}"),
+            SizedBox(height: 10),
+            if (data.status == "En espera")
+              OutlinedButton(
+                onPressed: () async {
+                  await MongoDatabase.updateCitaStatus(data.id, "Cancelado");
+                  setState(() {});
+                },
+                child: Text("Cancelar"),
+              ),
           ],
         ),
       ),

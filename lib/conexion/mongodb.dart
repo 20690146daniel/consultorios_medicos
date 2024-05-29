@@ -75,6 +75,7 @@ class MongoDatabase {
     final historial = await citasCollection.find().toList();
     return List<Map<String, dynamic>>.from(historial);
   }
+
   static Future<bool> getByusuario(String nombre, String correo) async {
     try{
     var user = await userCollection.findOne({
@@ -88,4 +89,11 @@ class MongoDatabase {
     return false;
   }
 } 
+
+  static Future<void> updateCitaStatus(ObjectId id, String newStatus) async {
+    await citasCollection.update(
+      where.id(id),
+      modify.set('status', newStatus),
+    );
+  }
 }
