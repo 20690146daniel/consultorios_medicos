@@ -75,4 +75,11 @@ class MongoDatabase {
     final historial = await citasCollection.find().toList();
     return List<Map<String, dynamic>>.from(historial);
   }
+
+  static Future<void> updateCitaStatus(ObjectId id, String newStatus) async {
+    await citasCollection.update(
+      where.id(id),
+      modify.set('status', newStatus),
+    );
+  }
 }

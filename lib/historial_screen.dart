@@ -105,6 +105,15 @@ class _historialScreenState extends State<historialScreen> {
             Text("Hora de inicio: ${data.hora}"),
             SizedBox(height: 5),
             Text("Estado: ${data.status}"),
+            SizedBox(height: 10),
+            if (data.status == "En espera")
+              OutlinedButton(
+                onPressed: () async {
+                  await MongoDatabase.updateCitaStatus(data.id, "Cancelado");
+                  setState(() {});
+                },
+                child: Text("Cancelar"),
+              ),
           ],
         ),
       ),
