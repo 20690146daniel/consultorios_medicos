@@ -8,8 +8,8 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "mongoose": "^5.12.3"
+    "express": "^4.19.2",
+    "mongoose": "^5.13.22"
   },
   "author": "",
   "license": "ISC"

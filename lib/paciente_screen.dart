@@ -17,15 +17,14 @@ class pacienteScreen extends StatefulWidget {
 
 class _pacienteScreenState extends State<pacienteScreen> {
   int _currentIndex = 0;
-   List<ScheduleModel> medicos = [];
-
+  List<ScheduleModel> medicos = [];
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> _screens = [
       const listaScreen(),
-      const historialScreen(),
-       buscarDoctorScreen(pacienteNombre: widget.user.nombre),
+      historialScreen(pacienteNombre: widget.user.nombre),
+      buscarDoctorScreen(pacienteNombre: widget.user.nombre),
       perfilScreen(user: widget.user),
     ];
 
@@ -45,7 +44,7 @@ class _pacienteScreenState extends State<pacienteScreen> {
       ),
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-              backgroundColor: Colors.indigo,
+        backgroundColor: Colors.indigo,
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
@@ -54,19 +53,31 @@ class _pacienteScreenState extends State<pacienteScreen> {
         },
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.medical_information, color: Colors.lightBlueAccent,),
+            icon: Icon(
+              Icons.medical_information,
+              color: Colors.lightBlueAccent,
+            ),
             label: 'Medicos',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.history, color: Colors.lightBlueAccent,),
+            icon: Icon(
+              Icons.history,
+              color: Colors.lightBlueAccent,
+            ),
             label: 'Historial',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today, color: Colors.lightBlueAccent,),
+            icon: Icon(
+              Icons.calendar_today,
+              color: Colors.lightBlueAccent,
+            ),
             label: 'Citas',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: Colors.lightBlueAccent,),
+            icon: Icon(
+              Icons.person,
+              color: Colors.lightBlueAccent,
+            ),
             label: 'Perfil',
           ),
         ],
