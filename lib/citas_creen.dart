@@ -10,7 +10,9 @@ class CitasScreen extends StatefulWidget {
   final DoctorModel doctor;
   final String pacienteNombre;
 
-  const CitasScreen({Key? key, required this.doctor, required this.pacienteNombre}) : super(key: key);
+  const CitasScreen(
+      {Key? key, required this.doctor, required this.pacienteNombre})
+      : super(key: key);
 
   @override
   _CitasScreenState createState() => _CitasScreenState();
@@ -86,9 +88,11 @@ class _CitasScreenState extends State<CitasScreen> {
                   );
                   if (pickedTime != null) {
                     int roundedMinute = (pickedTime.minute / 30).round() * 30;
-                    TimeOfDay adjustedTime = TimeOfDay(hour: pickedTime.hour, minute: roundedMinute % 60);
+                    TimeOfDay adjustedTime = TimeOfDay(
+                        hour: pickedTime.hour, minute: roundedMinute % 60);
                     if (roundedMinute >= 60) {
-                      adjustedTime = TimeOfDay(hour: (pickedTime.hour + 1) % 24, minute: 0);
+                      adjustedTime = TimeOfDay(
+                          hour: (pickedTime.hour + 1) % 24, minute: 0);
                     }
                     setState(() {
                       _selectedTime = adjustedTime;
@@ -119,6 +123,7 @@ class _CitasScreenState extends State<CitasScreen> {
                         pacienteNombre: widget.pacienteNombre,
                         fecha: _selectedDay,
                         hora: _selectedTime!.format(context),
+                        status: "En espera",
                       );
 
                       await saveCita(newCita);

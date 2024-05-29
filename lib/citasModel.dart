@@ -1,14 +1,14 @@
 import 'package:mongo_dart/mongo_dart.dart';
 
 class CitaModel {
-  CitaModel({
-    required this.id,
-    required this.doctorId,
-    required this.doctorNombre,
-    required this.fecha,
-    required this.hora,
-    required this.pacienteNombre,
-  });
+  CitaModel(
+      {required this.id,
+      required this.doctorId,
+      required this.doctorNombre,
+      required this.fecha,
+      required this.hora,
+      required this.pacienteNombre,
+      required this.status});
 
   ObjectId id;
   ObjectId doctorId;
@@ -16,6 +16,7 @@ class CitaModel {
   String pacienteNombre;
   DateTime fecha;
   String hora;
+  String status;
 
   factory CitaModel.fromJson(Map<String, dynamic> json) {
     return CitaModel(
@@ -25,6 +26,7 @@ class CitaModel {
       pacienteNombre: json["pacienteNombre"] as String? ?? '',
       fecha: DateTime.parse(json["fecha"] as String),
       hora: json["hora"] as String? ?? '',
+      status: json["status"] as String? ?? '',
     );
   }
 
@@ -35,5 +37,6 @@ class CitaModel {
         "pacienteNombre": pacienteNombre,
         "fecha": fecha.toIso8601String(),
         "hora": hora,
+        "status": status,
       };
 }

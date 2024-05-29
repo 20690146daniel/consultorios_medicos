@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:consultorios_medicos/conexion/mongodb.dart';
 import 'package:consultorios_medicos/citasModel.dart';
-import 'package:consultorios_medicos/MongoDbModel.dart'; // Importa tu modelo MongoDbModel
+import 'package:consultorios_medicos/MongoDbModel.dart';
 
 class historialScreen extends StatefulWidget {
   final String pacienteNombre;
@@ -13,12 +13,9 @@ class historialScreen extends StatefulWidget {
 }
 
 class _historialScreenState extends State<historialScreen> {
-  // Variable para almacenar el nombre del usuario actual
-
   @override
   void initState() {
     super.initState();
-    // Obtener el usuario actual cuando se inicializa el estado
   }
 
   @override
@@ -58,7 +55,15 @@ class _historialScreenState extends State<historialScreen> {
                 var citasUsuario = snapshot.data!
                     .where((cita) =>
                         cita['pacienteNombre'] == widget.pacienteNombre)
-                    .toList();
+                    .map((cita) {
+                  DateTime fechaCita = DateTime.parse(cita['fecha']);
+                  if (fechaCita.isBefore(DateTime.now()) &&
+                      cita['status'] != 'Cancelado') {
+                    cita['status'] = 'Atendida';
+                  }
+                  return cita;
+                }).toList();
+
                 if (citasUsuario.isNotEmpty) {
                   return ListView.builder(
                     itemCount: citasUsuario.length,
@@ -95,9 +100,11 @@ class _historialScreenState extends State<historialScreen> {
             SizedBox(height: 5),
             Text("Paciente: ${data.pacienteNombre}"),
             SizedBox(height: 5),
-            Text("Fecha: ${data.fecha.toLocal()}"), // Muestra la fecha local
+            Text("Fecha: ${data.fecha.toLocal()}"),
             SizedBox(height: 5),
             Text("Hora de inicio: ${data.hora}"),
+            SizedBox(height: 5),
+            Text("Estado: ${data.status}"),
           ],
         ),
       ),
