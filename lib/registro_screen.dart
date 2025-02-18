@@ -14,35 +14,46 @@ class _registroScreenState extends State<registroScreen> {
   var nombreController = TextEditingController();
   var correoController = TextEditingController();
   var contrasenaController = TextEditingController();
-
-  Future<void> _registro(String nombre, String contrasena, String correo) async {
-    if (contrasena.length < 8 || !contrasena.contains(RegExp(r'[!@#$%^&*(),._":]'))) {
-      _showErrorDialog("La contraseña es muy corta o no contiene al menos 1 carácter especial");
+  
+  Future<void> _registro(
+      String nombre, String contrasena, String correo) async {
+    if (contrasena.length < 8 ||
+        !contrasena.contains(RegExp(r'[!@#$%^&*(),._":]'))) {
+      _showErrorDialog(
+          "La contraseña es muy corta o no contiene al menos 1 carácter especial");
       _limpiar();
       return;
     }
 
-    bool usuexistente = await MongoDatabase.getByusuario(nombre, correo);
-    if (usuexistente) {
-      _showErrorDialog("Este usuario ya está registrado");
+    bool? usuexistente =
+        await MongoDatabase.getByusuario(nombre, correo); // Allow null return
+    if (usuexistente == null || usuexistente) {
+      _showErrorDialog(
+          "Este usuario ya está registrado o hubo un error al verificar");
       _limpiar();
       return;
     }
 
     final _id = M.ObjectId();
-    final data = MongoDbModel(id: _id, nombre: nombre, contrasena: contrasena, correo: correo);
+    final data = MongoDbModel(
+        id: _id, nombre: nombre, contrasena: contrasena, correo: correo);
     var result = await MongoDatabase.insert(data);
 
     if (result == "Datos insertados ") {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Datos insertados: " + _id.$oid)),
       );
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => pacienteScreen(user: data),
-        ),
-      );
+      if (data != null) {
+        // Ensure data is not null
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => pacienteScreen(user: data),
+          ),
+        );
+      } else {
+        _showErrorDialog("Error al crear el modelo de datos");
+      }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Error al registrar: $result")),
@@ -84,7 +95,6 @@ class _registroScreenState extends State<registroScreen> {
       backgroundColor: Colors.indigo,
       appBar: AppBar(
         backgroundColor: Colors.indigo,
-    
         elevation: 0,
       ),
       body: Center(
@@ -151,7 +161,6 @@ class _registroScreenState extends State<registroScreen> {
                 SizedBox(height: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                     textStyle: TextStyle(fontSize: 16),
                     shape: RoundedRectangleBorder(
@@ -159,7 +168,8 @@ class _registroScreenState extends State<registroScreen> {
                     ),
                   ),
                   onPressed: () {
-                    _registro(nombreController.text, contrasenaController.text, correoController.text);
+                    _registro(nombreController.text, contrasenaController.text,
+                        correoController.text);
                   },
                   child: Text('Registrarse'),
                 ),
